@@ -30,10 +30,10 @@ html5  •  css3  •  javascript
 
 ```bash
 # clone repo
-git clone https://github.com/yourusername/snake.git
+git clone https://github.com/xtial/main.git
 
 # navigate to directory
-cd snake
+cd main
 
 # serve locally
 python -m http.server 8000
@@ -72,4 +72,4 @@ contributions welcome! feel free to:
 
 ## 📝 license
 
-mit © [your-username] 
+mit © [xtial] 
