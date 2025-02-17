@@ -1,0 +1,221 @@
+/* Star Animations */
+@keyframes twinkle {
+    0%, 100% { opacity: 0.3; }
+    50% { opacity: 1; }
+}
+
+@keyframes floatPetals {
+    0% {
+        transform: translateY(0) rotate(0deg);
+    }
+    100% {
+        transform: translateY(-100%) rotate(360deg);
+    }
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Stars */
+#stars {
+    background: transparent;
+    animation: twinkle 3s infinite;
+}
+
+#stars:after {
+    content: " ";
+    position: absolute;
+    top: 2000px;
+}
+
+#stars2 {
+    animation: twinkle 4s infinite;
+}
+
+#stars2:after {
+    content: " ";
+    position: absolute;
+    top: 2000px;
+}
+
+#stars3 {
+    animation: twinkle 5s infinite;
+}
+
+#stars3:after {
+    content: " ";
+    position: absolute;
+    top: 2000px;
+}
+
+/* Loading Animation */
+.loading-screen {
+    animation: fadeOut 0.5s ease forwards;
+    animation-delay: 2s;
+}
+
+@keyframes fadeOut {
+    to {
+        opacity: 0;
+        visibility: hidden;
+    }
+}
+
+/* Profile Elements */
+.fade-in {
+    opacity: 0;
+    animation: fadeIn 0.8s ease forwards;
+}
+
+.profile-header {
+    animation-delay: 0.3s;
+}
+
+.social-links {
+    animation-delay: 0.6s;
+}
+
+.view-counter {
+    animation-delay: 0.9s;
+}
+
+/* Sword and Petals */
+.sword img {
+    animation: swordGlow 4s ease-in-out infinite;
+}
+
+@keyframes swordGlow {
+    0%, 100% {
+        filter: brightness(0) invert(1) drop-shadow(0 0 5px rgba(255,255,255,0.3));
+    }
+    50% {
+        filter: brightness(0) invert(1) drop-shadow(0 0 15px rgba(255,255,255,0.5));
+    }
+}
+
+.petals {
+    animation: floatPetals 20s linear infinite;
+}
+
+/* Hover Animations */
+.social-link {
+    transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.social-link:hover {
+    transform: translateY(-3px);
+}
+
+/* Cursor Animation */
+@keyframes cursorAnim {
+    from {
+        transform: scale(1);
+    }
+    to {
+        transform: scale(0.7);
+    }
+}
+
+@keyframes cursorAnim2 {
+    from {
+        transform: scale(1);
+    }
+    to {
+        transform: scale(0.4);
+    }
+}
+
+@keyframes cursorAnim3 {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(3);
+    }
+    100% {
+        transform: scale(1);
+        opacity: 0;
+    }
+}
+
+.cursor {
+    animation: cursorAnim 0.5s infinite alternate;
+}
+
+.cursor::after {
+    content: "";
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    border: 8px solid gray;
+    border-radius: 50%;
+    opacity: .5;
+    top: -8px;
+    left: -8px;
+    animation: cursorAnim2 0.5s infinite alternate;
+}
+
+.expand {
+    animation: cursorAnim3 0.5s forwards;
+    border: 1px solid var(--primary-color);
+}
+
+/* Star Generation */
+#stars {
+    width: 1px;
+    height: 1px;
+    background: transparent;
+    box-shadow: generateStars(700);
+}
+
+#stars2 {
+    width: 2px;
+    height: 2px;
+    background: transparent;
+    box-shadow: generateStars(200);
+}
+
+#stars3 {
+    width: 3px;
+    height: 3px;
+    background: transparent;
+    box-shadow: generateStars(100);
+}
+
+@function generateStars($n) {
+    $value: '#{random(2000)}px #{random(2000)}px #FFF';
+    @for $i from 2 through $n {
+        $value: '#{$value} , #{random(2000)}px #{random(2000)}px #FFF';
+    }
+    @return unquote($value);
+}
+
+/* Smooth Page Transitions */
+.page-transition {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--background);
+    z-index: 9999;
+    transform: scaleY(0);
+    transform-origin: top;
+    transition: transform 0.6s ease;
+}
+
+.page-transition.active {
+    transform: scaleY(1);
+} 
