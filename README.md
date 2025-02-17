@@ -1,4 +1,4 @@
-# ⚡ snake
+# ⚡ ecstasy
 
 A modern, minimalist bio platform with dynamic themes and interactive elements.
 
