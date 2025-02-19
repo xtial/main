@@ -14,21 +14,18 @@
 </head>
 <body>
     <!-- Background Elements -->
-    <div id="stars"></div>
-    <div id="stars2"></div>
-    <div id="stars3"></div>
-    <div class="bokeh-overlay"></div>
+    <div class="background-layer" style="z-index: 1;">
+        <div id="stars"></div>
+        <div id="stars2"></div>
+        <div id="stars3"></div>
+        <div class="bokeh-overlay"></div>
+    </div>
 
     <!-- Loading Screen -->
     <div class="loading-screen">
         <div class="loading-icon"></div>
     </div>
 
-    <!-- View Counter -->
-    <div class="view-counter fade-in">
-        <i class="far fa-eye"></i>
-        <span>4000</span>
-    </div>
 
     <main class="profile-container">
         <!-- Decorative Element -->
@@ -67,41 +64,55 @@
         <section class="status-section fade-in">
             <div class="status-card">
                 <div class="status-header">
-                    <i class="fas fa-circle-dot"></i>
-                    <span>Current Status</span>
+                    <i class="fas fa-signal"></i>
+                    <span>Activity</span>
                 </div>
-                <div id="discord-presence">
-                    <!-- Status content will be inserted here by JavaScript -->
+                <div id="discord-presence" class="status-content">
+                    <div class="status-loading">
+                        <div class="pulse"></div>
+                        <span>Loading status...</span>
+                    </div>
                 </div>
             </div>
 
             <div class="status-card spotify-status">
                 <div class="status-header">
                     <i class="fab fa-spotify"></i>
-                    <span>Currently Playing</span>
+                    <span>Vibing to</span>
                 </div>
                 <div class="spotify-embed">
-                    <iframe style="border-radius:12px" 
-                            src="https://open.spotify.com/embed/track/0nmW4fvqTwUDjlz13MNpJU?utm_source=generator&theme=0" 
-                            width="100%" 
-                            height="352" 
-                            frameBorder="0" 
-                            allowfullscreen="" 
-                            allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" 
-                            loading="lazy">
-                    </iframe>
+                    <iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/0MZGwYb5mTATbmoi671wEg?utm_source=generator" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
                 </div>
             </div>
         </section>
 
-        <!-- GitHub Projects -->
-        <section class="projects-section fade-in">
-            <h2>Projects</h2>
-            <div class="projects-grid" id="github-projects">
-                <div class="status-loading">Loading projects...</div>
-            </div>
-        </section>
+        <!-- Projects Sections -->
+        <div class="projects-container fade-in">
+            <!-- Web Applications -->
+            <section class="projects-section">
+                <h2><i class="fas fa-rocket"></i> Web Applications</h2>
+                <div class="projects-grid" id="web-projects">
+                    <div class="status-loading">
+                        <div class="pulse"></div>
+                        <span>Loading applications...</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- GitHub Projects -->
+            <section class="projects-section">
+                <h2><i class="fab fa-github"></i> GitHub Projects</h2>
+                <div class="projects-grid" id="github-projects">
+                    <div class="status-loading">
+                        <div class="pulse"></div>
+                        <span>Loading projects...</span>
+                    </div>
+                </div>
+            </section>
+        </div>
     </main>
+
+    <!-- Particle Canvas will be injected by JS with z-index: 2 -->
 
     <script src="js/main.js"></script>
     <script src="js/particles.js"></script>
