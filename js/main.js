@@ -1,22 +1,19 @@
 // Main initialization
 document.addEventListener('DOMContentLoaded', () => {
-    // Handle loading screen
-    const loadingScreen = document.querySelector('.loading-screen');
-    if (loadingScreen) {
-        window.addEventListener('load', () => {
-            setTimeout(() => {
-                loadingScreen.classList.add('hidden');
-            }, 500);
-        });
-    }
+    // Initialize theme
+    initTheme();
+    
+    // Initialize animations
+    initAnimations();
+    
+    // Initialize loading screen
+    initLoadingScreen();
+    
+    // Initialize responsive behavior
+    initResponsive();
+});
 
-    // Initialize fade-in animations
-    const fadeElements = document.querySelectorAll('.fade-in');
-    fadeElements.forEach((element, index) => {
-        element.style.animationDelay = `${0.3 * (index + 1)}s`;
-    });
-
-    // Handle theme initialization
+function initTheme() {
     const root = document.documentElement;
     const defaultTheme = {
         primary: '#FFFFFF',
@@ -26,12 +23,22 @@ document.addEventListener('DOMContentLoaded', () => {
         glow: 'rgba(255, 255, 255, 0.5)'
     };
 
-    // Apply default theme
     Object.entries(defaultTheme).forEach(([key, value]) => {
         root.style.setProperty(`--theme-${key}`, value);
     });
 
-    // Handle smooth scrolling for anchor links
+    document.body.classList.add('theme-loaded');
+}
+
+function initAnimations() {
+    // Initialize fade-in animations
+    const fadeElements = document.querySelectorAll('.fade-in');
+    fadeElements.forEach((element, index) => {
+        element.style.animationDelay = `${0.3 * (index + 1)}s`;
+        element.style.opacity = '1';
+    });
+
+    // Initialize smooth scrolling
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
             e.preventDefault();
@@ -44,19 +51,35 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     });
+}
 
-    // Handle responsive adjustments
-    const handleResize = () => {
-        const isMobile = window.innerWidth < 768;
-        document.body.classList.toggle('is-mobile', isMobile);
+function initLoadingScreen() {
+    const loadingScreen = document.querySelector('.loading-screen');
+    if (!loadingScreen) return;
+
+    // Hide loading screen after content is loaded
+    window.addEventListener('load', () => {
+        setTimeout(() => {
+            loadingScreen.classList.add('hidden');
+            document.body.classList.add('content-loaded');
+        }, 500);
+    });
+}
+
+function initResponsive() {
+    const updateLayout = () => {
+        document.documentElement.style.setProperty(
+            '--vh', 
+            `${window.innerHeight * 0.01}px`
+        );
     };
 
-    window.addEventListener('resize', handleResize);
-    handleResize(); // Initial call
+    window.addEventListener('resize', updateLayout);
+    updateLayout();
 
-    // Handle performance optimizations
+    // Handle reduced motion preference
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
     if (prefersReducedMotion.matches) {
         document.body.classList.add('reduced-motion');
     }
-}); 
+} 

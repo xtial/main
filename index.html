@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ecstasy ― sexy chill dev</title>
     <meta name="description" content="sexy chill dev">
+    <meta name="theme-color" content="#000000">
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/animations.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -13,55 +14,61 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
-    <!-- Background Elements -->
-    <div class="background-layer" style="z-index: 1;">
-        <div id="stars"></div>
-        <div id="stars2"></div>
-        <div id="stars3"></div>
+    <!-- Background Layer -->
+    <div class="background-layer">
+        <div class="stars-container">
+            <div id="stars"></div>
+            <div id="stars2"></div>
+            <div id="stars3"></div>
+        </div>
         <div class="bokeh-overlay"></div>
+    </div>
+
+    <!-- Particle System -->
+    <div class="particle-system">
+        <canvas id="particleCanvas"></canvas>
     </div>
 
     <!-- Loading Screen -->
     <div class="loading-screen">
         <div class="loading-icon"></div>
+        <div class="loading-text">Loading...</div>
     </div>
 
-
+    <!-- Main Content -->
     <main class="profile-container">
-        <!-- Decorative Element -->
-        <div class="particle-system">
-            <canvas id="particleCanvas"></canvas>
-        </div>
-
-        <div class="profile-header fade-in">
+        <!-- Profile Section -->
+        <section class="profile-header fade-in">
             <div class="profile-avatar">
                 <img src="assets/avatar.jpg" alt="ecstasy's Profile Picture">
                 <div class="avatar-glow"></div>
             </div>
-            <h1>ecstasy</h1>
+            <h1 class="glowing-text">ecstasy</h1>
             <p class="bio">sexy chill dev</p>
-        </div>
+        </section>
 
+        <!-- Social Links -->
         <section class="social-links fade-in">
-            <a href="https://t.me/huntforblood" class="social-link" target="_blank" aria-label="Telegram">
+            <a href="https://t.me/huntforblood" class="social-link" target="_blank" rel="noopener noreferrer" aria-label="Telegram">
                 <i class="fab fa-telegram"></i>
             </a>
-            <a href="https://discord.gg/WCMWk8BpMP" class="social-link" target="_blank" aria-label="Discord">
+            <a href="https://discord.gg/WCMWk8BpMP" class="social-link" target="_blank" rel="noopener noreferrer" aria-label="Discord">
                 <i class="fab fa-discord"></i>
             </a>
-            <a href="mailto:recitalofx@gmail.com" class="social-link" target="_blank" aria-label="Email">
+            <a href="mailto:recitalofx@gmail.com" class="social-link" target="_blank" rel="noopener noreferrer" aria-label="Email">
                 <i class="far fa-envelope"></i>
             </a>
-            <a href="https://etherscan.io/address/0x8Eb90B541A7dD7354BE00E2a6cFe6ab206D4c39C" class="social-link" target="_blank" aria-label="Ethereum">
+            <a href="https://etherscan.io/address/0x8Eb90B541A7dD7354BE00E2a6cFe6ab206D4c39C" class="social-link" target="_blank" rel="noopener noreferrer" aria-label="Ethereum">
                 <i class="fab fa-ethereum"></i>
             </a>
-            <a href="https://github.com/xtial" class="social-link" target="_blank" aria-label="GitHub">
+            <a href="https://github.com/xtial" class="social-link" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
                 <i class="fab fa-github"></i>
             </a>
         </section>
 
         <!-- Status Section -->
         <section class="status-section fade-in">
+            <!-- Activity Status -->
             <div class="status-card">
                 <div class="status-header">
                     <i class="fas fa-signal"></i>
@@ -75,22 +82,34 @@
                 </div>
             </div>
 
+            <!-- Spotify Status -->
             <div class="status-card spotify-status">
                 <div class="status-header">
                     <i class="fab fa-spotify"></i>
                     <span>Vibing to</span>
                 </div>
                 <div class="spotify-embed">
-                    <iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/0MZGwYb5mTATbmoi671wEg?utm_source=generator" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+                    <iframe 
+                        src="https://open.spotify.com/embed/track/0MZGwYb5mTATbmoi671wEg?utm_source=generator" 
+                        width="100%" 
+                        height="152" 
+                        frameBorder="0" 
+                        allowfullscreen="" 
+                        allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" 
+                        loading="lazy">
+                    </iframe>
                 </div>
             </div>
         </section>
 
-        <!-- Projects Sections -->
+        <!-- Projects Container -->
         <div class="projects-container fade-in">
             <!-- Web Applications -->
             <section class="projects-section">
-                <h2><i class="fas fa-rocket"></i> Web Applications</h2>
+                <h2 class="section-title">
+                    <i class="fas fa-rocket"></i>
+                    <span>Web Applications</span>
+                </h2>
                 <div class="projects-grid" id="web-projects">
                     <div class="status-loading">
                         <div class="pulse"></div>
@@ -101,7 +120,10 @@
 
             <!-- GitHub Projects -->
             <section class="projects-section">
-                <h2><i class="fab fa-github"></i> GitHub Projects</h2>
+                <h2 class="section-title">
+                    <i class="fab fa-github"></i>
+                    <span>GitHub Projects</span>
+                </h2>
                 <div class="projects-grid" id="github-projects">
                     <div class="status-loading">
                         <div class="pulse"></div>
@@ -112,11 +134,10 @@
         </div>
     </main>
 
-    <!-- Particle Canvas will be injected by JS with z-index: 2 -->
-
-    <script src="js/main.js"></script>
+    <!-- Scripts -->
     <script src="js/particles.js"></script>
     <script src="js/animations.js"></script>
     <script src="js/integrations.js"></script>
+    <script src="js/main.js"></script>
 </body>
 </html>

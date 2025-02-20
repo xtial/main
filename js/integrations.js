@@ -1,5 +1,6 @@
 class Integrations {
     constructor() {
+        // Initialize DOM elements
         this.statusElement = document.getElementById('discord-presence');
         this.webProjectsElement = document.getElementById('web-projects');
         this.githubProjectsElement = document.getElementById('github-projects');
@@ -48,13 +49,43 @@ class Integrations {
             }
         };
 
+        // Initialize everything
         this.init();
-        this.startStatusRotation();
     }
 
     async init() {
-        await this.initProjects();
-        this.updateStatus(this.config.status);
+        try {
+            // Initialize all components
+            await Promise.all([
+                this.initWebProjects(),
+                this.initGithubProjects()
+            ]);
+            
+            // Start status rotation
+            this.updateStatus(this.config.status);
+            this.startStatusRotation();
+            
+            // Remove loading states after successful initialization
+            document.querySelectorAll('.status-loading').forEach(loader => {
+                loader.style.display = 'none';
+            });
+        } catch (error) {
+            console.error('Failed to initialize components:', error);
+            this.handleInitializationError();
+        }
+    }
+
+    handleInitializationError() {
+        const errorMessage = `
+            <div class="error-message">
+                <i class="fas fa-exclamation-circle"></i>
+                <span>Failed to load content. Please refresh the page.</span>
+            </div>
+        `;
+        
+        document.querySelectorAll('.status-loading').forEach(loader => {
+            loader.innerHTML = errorMessage;
+        });
     }
 
     updateStatus(status) {
@@ -105,10 +136,16 @@ class Integrations {
                 type: ['online', 'idle', 'dnd'][Math.floor(Math.random() * 3)]
             });
             currentIndex = (currentIndex + 1) % this.config.status.activities.length;
-        }, 10000); // Rotate every 10 seconds
+        }, 10000);
     }
 
     async initWebProjects() {
+        if (!this.webProjectsElement) return;
+        
+        // Clear loading state
+        this.webProjectsElement.innerHTML = '';
+        
+        // Add your web projects here
         const webProjects = [
             {
                 id: 'nelliel-suite',
@@ -124,42 +161,36 @@ class Integrations {
             }
         ];
         
-        try {
-            if (!this.webProjectsElement) {
-                console.error('Web projects element not found');
-                return;
-            }
+        webProjects.forEach(project => {
+            const projectCard = this.createProjectCard(project);
+            this.webProjectsElement.appendChild(projectCard);
+        });
+    }
 
-            const webProjectsHtml = webProjects.map(project => `
-                <a href="${project.url}" class="project-card" id="${project.id}" target="_blank" rel="noopener noreferrer">
-                    <div class="project-header">
-                        <h3 class="project-title">${project.name}</h3>
-                        <p class="project-description">${project.description}</p>
-                    </div>
-                </a>
-            `).join('');
-
-            this.webProjectsElement.innerHTML = webProjectsHtml;
-        } catch (error) {
-            console.error('Error loading web projects:', error);
-            if (this.webProjectsElement) {
-                this.webProjectsElement.innerHTML = `
-                    <div class="error-message">
-                        <i class="fas fa-exclamation-circle"></i>
-                        Failed to load projects
-                    </div>
-                `;
-            }
-        }
+    createProjectCard(project) {
+        const card = document.createElement('a');
+        card.href = project.url;
+        card.className = 'project-card';
+        card.target = '_blank';
+        card.rel = 'noopener noreferrer';
+        
+        card.innerHTML = `
+            <div class="project-header">
+                <h3 class="project-title">${project.name}</h3>
+                <p class="project-description">${project.description}</p>
+            </div>
+        `;
+        
+        return card;
     }
 
     async initGithubProjects() {
+        if (!this.githubProjectsElement) return;
+        
+        // Clear loading state
+        this.githubProjectsElement.innerHTML = '';
+        
         try {
-            if (!this.githubProjectsElement) {
-                console.error('GitHub projects element not found');
-                return;
-            }
-
             const response = await fetch(`${this.config.github_api}/users/${this.config.githubUsername}/repos?sort=updated&per_page=4`);
             if (!response.ok) {
                 throw new Error(`GitHub API responded with status: ${response.status}`);
@@ -168,45 +199,19 @@ class Integrations {
             const githubRepos = await response.json();
             
             const githubProjectsHtml = githubRepos.map(repo => `
-                <div class="project-card">
+                <a href="${repo.html_url}" class="project-card" target="_blank" rel="noopener noreferrer">
                     <div class="project-header">
-                        <a href="${repo.html_url}" class="title-link" target="_blank" rel="noopener noreferrer">
-                            <h3 class="project-title">${repo.name}</h3>
-                            <div class="status-indicators">
-                                <span>${repo.archived ? '📦' : '📝'}</span>
-                                ${repo.stargazers_count > 0 ? '<span>⭐</span>' : ''}
-                            </div>
-                        </a>
-                        <p class="project-description">${repo.description || ''}</p>
+                        <h3 class="project-title">${repo.name}</h3>
+                        <p class="project-description">${repo.description || 'No description available'}</p>
                     </div>
-                    <div class="project-footer">
-                        <div class="tech-stack">
-                            ${repo.language ? `<span class="tech-tag">${repo.language}</span>` : ''}
-                            ${repo.topics ? repo.topics.map(topic => `<span class="tech-tag">${topic}</span>`).join('') : ''}
-                        </div>
-                    </div>
-                </div>
+                </a>
             `).join('');
 
             this.githubProjectsElement.innerHTML = githubProjectsHtml;
         } catch (error) {
-            console.error('Error loading GitHub projects:', error);
-            if (this.githubProjectsElement) {
-                this.githubProjectsElement.innerHTML = `
-                    <div class="error-message">
-                        <i class="fas fa-exclamation-circle"></i>
-                        Failed to load GitHub projects
-                    </div>
-                `;
-            }
+            console.error('Failed to fetch GitHub projects:', error);
+            throw error;
         }
-    }
-
-    async initProjects() {
-        await Promise.all([
-            this.initWebProjects(),
-            this.initGithubProjects()
-        ]);
     }
 }
 
