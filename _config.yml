@@ -1,0 +1,28 @@
+title: ecstasy
+description: sexy chill dev
+baseurl: ""
+url: ""
+
+# Build settings
+markdown: kramdown
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - node_modules
+  - README.md
+
+# Plugin settings
+plugins:
+  - jekyll-seo-tag
+
+# Site settings
+lang: en
+author: ecstasy
+social:
+  github: xtial
+  telegram: huntforblood
+
+# Theme settings
+theme: null
+sass:
+  style: compressed 

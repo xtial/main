@@ -1,75 +1,53 @@
-# ⚡ ecstasy
+# Personal Portfolio
 
-A modern, minimalist bio platform with dynamic themes and interactive elements.
+A modern, responsive portfolio website showcasing projects and status.
 
-## ✨ features
+## Features
 
-- modern, responsive design
-- dynamic theme switching
-- interactive particle effects
-- spotify integration
-- github projects showcase
-- magnetic cursor effects
-- audio visualizer
+- Responsive design
+- Dynamic project cards
+- Status integration
+- Particle effects and animations
+- GitHub projects integration
 
-## 🛠️ tech
+## Deployment
 
-```
-html5  •  css3  •  javascript
-```
+### GitHub Pages
 
-## 🎨 themes
+1. Push to the `main` branch
+2. Go to repository Settings > Pages
+3. Set source branch to `main`
+4. Set folder to `/ (root)`
+5. Save the settings
 
-- default (minimal white)
-- cyberpunk (neon green)
-- sunset (warm pink)
-- matrix (digital green)
-- ocean (deep blue)
+### Custom Domain (Optional)
 
-## 🚀 quick start
+1. Add your domain to the CNAME file
+2. Configure DNS settings:
+   - Add an A record pointing to GitHub Pages IPs
+   - Add a CNAME record if using a subdomain
 
-```bash
-# clone repo
-git clone https://github.com/xtial/main.git
+## Local Development
 
-# navigate to directory
-cd main
+1. Clone the repository
+2. Open `index.html` in a browser
+3. For live reload, use a local server:
+   ```bash
+   npx http-server
+   # or
+   python -m http.server
+   ```
 
-# serve locally
-python -m http.server 8000
-# or
-npx serve
-```
-
-## 📦 structure
+## Structure
 
 ```
-main/
-├── css/          # styles
-├── js/           # logic
-└── index.html    # entry
+.
+├── index.html          # Main HTML file
+├── css/               # Stylesheets
+├── js/                # JavaScript files
+└── assets/           # Images and other assets
 ```
 
-## 💫 performance
+## License
 
-- hardware-accelerated animations
-- optimized asset loading
-- reduced motion support
-- efficient dom operations
-
-## 🌐 browser support
-
-```
-chrome   •   firefox   •   safari   •   edge
-```
-
-## 🤝 contribute
-
-contributions welcome! feel free to:
-- fork
-- create feature branch
-- submit pull request
-
-## 📝 license
-
-mit © [xtial] 
+MIT License - feel free to use and modify
